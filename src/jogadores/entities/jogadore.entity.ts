@@ -6,7 +6,7 @@ export class Jogador {
   id: number;
 
   @Column()
-  nickName: string;
+  Name: string;
 
   @Column()
   fotoDePerfil: string; // Armazena o caminho para a imagem
