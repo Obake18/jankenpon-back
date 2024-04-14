@@ -8,27 +8,32 @@ export class JogadoresController {
   constructor(private readonly jogadoresService: JogadoresService) {}
 
   @Post()
-  create(@Body() createJogadoreDto: CreateJogadoreDto) {
-    return this.jogadoresService.create(createJogadoreDto);
+  async create(@Body() createJogadoreDto: CreateJogadoreDto) {
+    const jogador = await this.jogadoresService.create(createJogadoreDto);
+    return { message: 'Jogador invocado com sucesso!', jogador };
   }
 
   @Get()
-  findAll() {
-    return this.jogadoresService.findAll();
+  async findAll() {
+    const jogadores = await this.jogadoresService.findAll();
+    return { message: 'Os guerreiros foram encontrados:', jogadores };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.jogadoresService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const jogador = await this.jogadoresService.findOne(+id);
+    return { message: 'Um novo guerreiro foi identificado:', jogador};
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateJogadoreDto: UpdateJogadoreDto) {
-    return this.jogadoresService.update(+id, updateJogadoreDto);
+  async update(@Param('id') id: string, @Body() updateJogadoreDto: UpdateJogadoreDto) {
+    const jogador = await this.jogadoresService.update(+id, updateJogadoreDto);
+    return { message: 'A Calamidade Celestial abençoou  ${jogador.name}', jogador };
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.jogadoresService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.jogadoresService.remove(+id);
+    return { message: 'As runas o expurgam!' };
   }
 }
